@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>TopSpeech · Speech Therapy App</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Home Screen -->
+        <div class="screen active" id="homeScreen">
+            <div class="home-header">
+                <div class="home-greeting">
+                    <h1>Good morning! 🌅</h1>
+                    <p>Ready to improve your speech?</p>
+                </div>
+                <div class="profile-avatar" onclick="showProfile()">👤</div>
+            </div>
+
+            <div class="home-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-value">540</div>
+                    <div class="stat-label">Total XP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+            </div>
+
+            <div class="home-lessons">
+                <h2>Today's Lessons</h2>
+                <div class="lesson-card" onclick="startLesson('r-sound')">
+                    <div class="lesson-icon">🎙️</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">R Sound Mastery</div>
+                        <div class="lesson-desc">5 exercises · ~5 min</div>
+                        <div class="lesson-progress">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="lesson-status">Start</div>
+                </div>
+                <div class="lesson-card" onclick="startLesson('th-sound')">
+                    <div class="lesson-icon">🦷</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">TH Sound Practice</div>
+                        <div class="lesson-desc">4 exercises · ~4 min</div>
+                        <div class="lesson-progress">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="lesson-status">Continue</div>
+                </div>
+                <div class="lesson-card locked">
+                    <div class="lesson-icon">👅</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">S Sound Challenge</div>
+                        <div class="lesson-desc">6 exercises · ~6 min</div>
+                    </div>
+                    <div class="lesson-status">🔒 Level 4</div>
+                </div>
+            </div>
+
+            <div class="home-bottom">
+                <button class="btn-secondary" onclick="showAchievements()">🏆 Achievements</button>
+                <button class="btn-secondary" onclick="showSettings()">⚙️ Settings</button>
+            </div>
+        </div>
+
+        <div class="screen" id="startScreen">
+            <div class="start-hero">
+                <div class="start-bg-blob blob1"></div>
+                <div class="start-bg-blob blob2"></div>
+                <div class="start-bg-blob blob3"></div>
+
+                <div class="app-logo">
+                    <div class="logo-icon">🎙️</div>
+                    <div class="logo-text">Top<span>Speech</span></div>
+                </div>
+
+                <div class="start-mascot">🦜</div>
+
+                <h1 class="start-title" id="startTitle">Ready to practice your R sound?</h1>
+                <p class="start-subtitle" id="startSubtitle">A 5-minute daily lesson, just for you. Your streak is on the line!</p>
+
+                <div class="start-stats">
+                    <div class="stat-pill"><span class="dot" style="background:var(--gold)"></span> 7 day streak</div>
+                    <div class="stat-pill"><span class="dot" style="background:var(--coral)"></span> 540 XP total</div>
+                    <div class="stat-pill"><span class="dot" style="background:var(--sage)"></span> Level 3</div>
+                </div>
+            </div>
+
+            <div class="start-bottom">
+                <div class="lesson-preview-card">
+                    <div class="lesson-preview-icon">🎯</div>
+                    <div class="lesson-preview-info">
+                        <div class="lesson-preview-title" id="lessonPreviewTitle">Day 8 · Rhotacism Flow</div>
+                        <div class="lesson-preview-meta" id="lessonPreviewMeta">5 exercises · ~5 min</div>
+                    </div>
+                    <div class="lesson-preview-badge" id="lessonPreviewBadge">NEW</div>
+                </div>
+                <button class="btn-primary" onclick="launchLesson()">Start Today's Lesson →</button>
+                <button class="btn-secondary" onclick="showHome()">Back</button>
+            </div>
+        </div>
+
+        <!-- Profile Screen -->
+        <div class="screen" id="profileScreen">
+            <div class="profile-header">
+                <button class="btn-back" onclick="showHome()">←</button>
+                <h1>Profile</h1>
+            </div>
+            <div class="profile-content">
+                <div class="profile-avatar-large">👤</div>
+                <div class="profile-name">Speech Learner</div>
+                <div class="profile-level">Level 3</div>
+                <div class="profile-xp">540 XP to Level 4</div>
+
+                <div class="profile-stats-grid">
+                    <div class="profile-stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-desc">Day Streak</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="stat-number">23</div>
+                        <div class="stat-desc">Lessons Completed</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-desc">Avg Accuracy</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="stat-number">2h 15m</div>
+                        <div class="stat-desc">Practice Time</div>
+                    </div>
+                </div>
+
+                <div class="achievements-preview">
+                    <h3>Recent Achievements</h3>
+                    <div class="achievement-item">
+                        <div class="achievement-icon">🔥</div>
+                        <div class="achievement-text">7 Day Streak</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-icon">🎯</div>
+                        <div class="achievement-text">Perfect Lesson</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div class="screen" id="settingsScreen">
+            <div class="settings-header">
+                <button class="btn-back" onclick="showHome()">←</button>
+                <h1>Settings</h1>
+            </div>
+            <div class="settings-content">
+                <div class="setting-group">
+                    <h3>Audio</h3>
+                    <div class="setting-item">
+                        <span>Voice Speed</span>
+                        <select>
+                            <option>Slow</option>
+                            <option>Normal</option>
+                            <option>Fast</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <span>Sound Effects</span>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Practice</h3>
+                    <div class="setting-item">
+                        <span>Difficulty</span>
+                        <select>
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <span>Daily Goal</span>
+                        <select>
+                            <option>5 minutes</option>
+                            <option>10 minutes</option>
+                            <option>15 minutes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Notifications</h3>
+                    <div class="setting-item">
+                        <span>Daily Reminders</span>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span>Streak Alerts</span>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>About</h3>
+                    <div class="setting-item">
+                        <span>Version</span>
+                        <span class="version">1.2.0</span>
+                    </div>
+                    <button class="btn-secondary">Privacy Policy</button>
+                    <button class="btn-secondary">Terms of Service</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Screen -->
+        <div class="screen" id="achievementsScreen">
+            <div class="achievements-header">
+                <button class="btn-back" onclick="showHome()">←</button>
+                <h1>Achievements</h1>
+            </div>
+            <div class="achievements-content">
+                <div class="achievement-category">
+                    <h3>Streaks</h3>
+                    <div class="achievement-grid">
+                        <div class="achievement-card unlocked">
+                            <div class="achievement-icon">🔥</div>
+                            <div class="achievement-title">First Steps</div>
+                            <div class="achievement-desc">Complete your first lesson</div>
+                        </div>
+                        <div class="achievement-card unlocked">
+                            <div class="achievement-icon">🔥</div>
+                            <div class="achievement-title">Week Warrior</div>
+                            <div class="achievement-desc">7 day practice streak</div>
+                        </div>
+                        <div class="achievement-card locked">
+                            <div class="achievement-icon">🔥</div>
+                            <div class="achievement-title">Month Master</div>
+                            <div class="achievement-desc">30 day practice streak</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievement-category">
+                    <h3>Skills</h3>
+                    <div class="achievement-grid">
+                        <div class="achievement-card unlocked">
+                            <div class="achievement-icon">🎯</div>
+                            <div class="achievement-title">R Master</div>
+                            <div class="achievement-desc">Perfect R sound accuracy</div>
+                        </div>
+                        <div class="achievement-card locked">
+                            <div class="achievement-icon">🦷</div>
+                            <div class="achievement-title">TH Expert</div>
+                            <div class="achievement-desc">Master TH sounds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="screen" id="lessonScreen">
+            <div class="lesson-header">
+                <button class="btn-quit" onclick="showQuitModal()">✕</button>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill">
+                        <div class="progress-glow"></div>
+                    </div>
+                </div>
+                <div class="xp-badge">⚡ <span id="xpCounter">0</span></div>
+                <div class="lives-display" id="livesDisplay">
+                    <span class="heart" id="h1">❤️</span>
+                    <span class="heart" id="h2">❤️</span>
+                    <span class="heart" id="h3">❤️</span>
+                </div>
+            </div>
+
+            <div class="card-area" id="cardArea">
+                <div class="exercise-card" id="card1">
+                    <div class="card-type-badge badge-listen">🎧 Listen & Repeat</div>
+                    <div>
+                        <div class="card-title">Hear the sound,<br>then repeat it.</div>
+                        <div class="card-instruction">Press play, listen carefully, then say it out loud.</div>
+                    </div>
+                    <div class="listen-word"><span class="highlight">R</span>abbit</div>
+                    <div class="waveform" id="waveform1">
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div>
+                    </div>
+                    <button class="play-btn" id="playBtn1" onclick="togglePlay('1')">
+                        <span class="play-icon" id="playIcon1">▶</span>
+                    </button>
+                    <div class="play-hint" id="playHint1">Tap to listen</div>
+                    <div class="confidence-wrap">
+                        <div class="confidence-label">
+                            <span>How well did that feel?</span>
+                            <span class="confidence-emoji" id="confEmoji1">🤔</span>
+                        </div>
+                        <div class="confidence-track">
+                            <div class="confidence-fill" id="confFill1" style="width:0%; background:var(--coral)"></div>
+                        </div>
+                        <div class="confidence-options">
+                            <button class="conf-btn" onclick="setConfidence(1,'low')" id="conf1-low"><span class="conf-emoji">😰</span>Struggled</button>
+                            <button class="conf-btn" onclick="setConfidence(1,'mid')" id="conf1-mid"><span class="conf-emoji">🙂</span>Getting it</button>
+                            <button class="conf-btn" onclick="setConfidence(1,'high')" id="conf1-high"><span class="conf-emoji">😄</span>Nailed it!</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card" id="card2">
+                    <div class="card-type-badge badge-select">🔠 Tap the Word</div>
+                    <div>
+                        <div class="card-title">Which word has the correct R sound?</div>
+                        <div class="card-instruction">Listen to each option in your head and tap the one that sounds right.</div>
+                    </div>
+                    <div class="select-prompt">Find the word where the <em>R</em> is said correctly at the start</div>
+                    <div class="word-options" id="wordOptions">
+                        <button class="word-option" onclick="selectWord(this,'wrong')">Wabbit</button>
+                        <button class="word-option" onclick="selectWord(this,'correct')">Rabbit</button>
+                        <button class="word-option" onclick="selectWord(this,'wrong')">Yabbit</button>
+                        <button class="word-option" onclick="selectWord(this,'wrong')">Labbit</button>
+                    </div>
+                    <div class="confidence-wrap">
+                        <div class="confidence-label">
+                            <span>How confident were you?</span>
+                            <span class="confidence-emoji" id="confEmoji2">🤔</span>
+                        </div>
+                        <div class="confidence-track">
+                            <div class="confidence-fill" id="confFill2" style="width:0%; background:var(--coral)"></div>
+                        </div>
+                        <div class="confidence-options">
+                            <button class="conf-btn" onclick="setConfidence(2,'low')" id="conf2-low"><span class="conf-emoji">😰</span>Guessed</button>
+                            <button class="conf-btn" onclick="setConfidence(2,'mid')" id="conf2-mid"><span class="conf-emoji">🙂</span>Fairly sure</button>
+                            <button class="conf-btn" onclick="setConfidence(2,'high')" id="conf2-high"><span class="conf-emoji">😄</span>Certain!</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card" id="card3">
+                    <div class="card-type-badge badge-mirror">🪞 Mirror Mode</div>
+                    <div>
+                        <div class="card-title">Shape your mouth<br>like this.</div>
+                        <div class="card-instruction">Watch your mouth position and match the cue below.</div>
+                    </div>
+                    <div class="mirror-frame">
+                        <div class="mirror-overlay">
+                            <div class="mirror-emoji" id="mirrorEmoji">😮</div>
+                            <div class="mirror-label">Match this shape</div>
+                        </div>
+                    </div>
+                    <div style="font-size:13px; font-weight:600; color:var(--ink-muted); text-align:center; margin:-4px 0 4px;">Tap each position to practice:</div>
+                    <div class="mouth-cues">
+                        <div class="mouth-cue" onclick="selectMouthCue(this, '😮', 'Open')">
+                            <span class="mouth-cue-emoji">😮</span>
+                            <span class="mouth-cue-label">Open</span>
+                        </div>
+                        <div class="mouth-cue" onclick="selectMouthCue(this, '🫦', 'Lips')">
+                            <span class="mouth-cue-emoji">🫦</span>
+                            <span class="mouth-cue-label">Lips</span>
+                        </div>
+                        <div class="mouth-cue" onclick="selectMouthCue(this, '😬', 'Teeth')">
+                            <span class="mouth-cue-emoji">😬</span>
+                            <span class="mouth-cue-label">Teeth</span>
+                        </div>
+                        <div class="mouth-cue active" onclick="selectMouthCue(this, '🙄', 'Tongue')">
+                            <span class="mouth-cue-emoji">🙄</span>
+                            <span class="mouth-cue-label">Tongue</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card" id="card4">
+                    <div class="card-type-badge badge-breathe">🌬️ Breath Prep</div>
+                    <div>
+                        <div class="card-title">Breathe with me<br>before we speak.</div>
+                        <div class="card-instruction">Good breath support makes the R sound easier. Follow the circle.</div>
+                    </div>
+                    <div class="breath-circle-container">
+                        <div class="breath-outer" id="breathOuter">
+                            <div class="breath-ring" id="breathRing"></div>
+                            <div class="breath-inner" id="breathInner" onclick="startBreathing()" tabindex="0" role="button" aria-label="Start breathing exercise" onkeydown="if(event.key==='Enter' || event.key===' ') startBreathing()">
+                                <span class="breath-icon">🌬️</span>
+                                <span class="breath-phase-text" id="breathText">Tap to start</span>
+                                <span class="breath-phase-counter" id="breathCounter"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="breath-instruction" id="breathInstruction">
+                        Take a slow breath in,<br>hold briefly, then breathe out gently.
+                    </div>
+                </div>
+
+                <div class="exercise-card" id="card5">
+                    <div class="card-type-badge badge-listen">🎧 Phrase Practice</div>
+                    <div>
+                        <div class="card-title">Now try a whole phrase.</div>
+                        <div class="card-instruction">Listen first, then repeat as naturally as you can.</div>
+                    </div>
+                    <div class="listen-word" style="font-size:32px; letter-spacing:-0.5px; padding:12px 0; text-align:center; line-height:1.4">
+                        "<span class="highlight">R</span>ound the <span class="highlight">r</span>ugged <span class="highlight">r</span>ock"
+                    </div>
+                    <div class="waveform" id="waveform5">
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div>
+                    </div>
+                    <button class="play-btn" id="playBtn5" onclick="togglePlay('5')" style="width:64px;height:64px">
+                        <span class="play-icon" id="playIcon5" style="font-size:22px">▶</span>
+                    </button>
+                    <div class="confidence-wrap">
+                        <div class="confidence-label">
+                            <span>That phrase felt...</span>
+                            <span class="confidence-emoji" id="confEmoji5">🤔</span>
+                        </div>
+                        <div class="confidence-track">
+                            <div class="confidence-fill" id="confFill5" style="width:0%; background:var(--coral)"></div>
+                        </div>
+                        <div class="confidence-options">
+                            <button class="conf-btn" onclick="setConfidence(5,'low')" id="conf5-low"><span class="conf-emoji">😰</span>Hard</button>
+                            <button class="conf-btn" onclick="setConfidence(5,'mid')" id="conf5-mid"><span class="conf-emoji">🙂</span>OK</button>
+                            <button class="conf-btn" onclick="setConfidence(5,'high')" id="conf5-high"><span class="conf-emoji">😄</span>Easy!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feedback-bar" id="feedbackBar">
+                <div class="feedback-icon-wrap" id="feedbackIcon">✓</div>
+                <div class="feedback-text">
+                    <div class="feedback-title" id="feedbackTitle">Excellent!</div>
+                    <div class="feedback-subtitle" id="feedbackSubtitle">That's the correct sound.</div>
+                </div>
+                <button class="feedback-btn" id="feedbackBtn" onclick="nextCard()">Next</button>
+            </div>
+
+            <div class="lesson-footer">
+                <button class="check-btn" id="checkBtn" onclick="checkAnswer()">Check</button>
+            </div>
+        </div>
+
+        <div class="screen" id="completeScreen">
+            <div class="complete-header">
+                <div class="complete-streak">🔥 8 Day Streak!</div>
+                <div style="font-size:14px; color:rgba(255,255,255,0.35); font-weight:600;">Lesson Complete</div>
+            </div>
+
+            <div class="complete-hero">
+                <div class="confetti-field" id="confettiField"></div>
+                <div class="complete-medallion" id="medallion">
+                    🏅
+                    <div class="medallion-ring"></div>
+                    <div class="medallion-ring2"></div>
+                </div>
+                <h2 class="complete-title">Brilliant work<br>today!</h2>
+                <p class="complete-subtitle">Your R sounds are getting clearer with every session.</p>
+
+                <div class="xp-burst">
+                    <div class="xp-number" id="finalXP">+50</div>
+                    <div class="xp-label">XP Earned</div>
+                </div>
+
+                <div class="complete-stats">
+                    <div class="c-stat">
+                        <div class="c-stat-val">5/5</div>
+                        <div class="c-stat-label">Done</div>
+                    </div>
+                    <div class="c-stat">
+                        <div class="c-stat-val" id="accuracyStat">80%</div>
+                        <div class="c-stat-label">Accuracy</div>
+                    </div>
+                    <div class="c-stat">
+                        <div class="c-stat-val">4:38</div>
+                        <div class="c-stat-label">Time</div>
+                    </div>
+                    <div class="c-stat" id="confidenceStat">
+                        <div class="c-stat-val">😊</div>
+                        <div class="c-stat-label">Mood</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="complete-bottom">
+                <button class="btn-primary-dark" onclick="restartApp()">Continue Learning 🎙️</button>
+                <button class="btn-ghost-dark" onclick="restartApp()">Share Progress</button>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="quitModal" onclick="closeQuitModal(event)">
+            <div class="modal-sheet">
+                <div class="modal-icon">🏃</div>
+                <div class="modal-title">Leave the lesson?</div>
+                <div class="modal-body">Your progress won't be saved — and your 7-day streak is counting on you!</div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" style="border-color:var(--coral);color:var(--coral)" onclick="quitLesson()">Yes, I'll leave</button>
+                    <button class="btn-primary" onclick="closeQuitModal()">Keep Going 💪</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="notification-toast" id="notificationToast">
+        <div class="toast-icon" id="toastIcon">🎉</div>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">Achievement Unlocked!</div>
+            <div class="toast-message" id="toastMessage">7 Day Streak</div>
+        </div>
+        <button class="toast-close" onclick="hideNotification()">×</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
